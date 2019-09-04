@@ -1,0 +1,6 @@
+[submodule "lib/DFRobotDFPlayerMini"]
+	path = lib/DFRobotDFPlayerMini
+	url = https://github.com/DFRobot/DFRobotDFPlayerMini.git
+[submodule "lib/function-fsm"]
+	path = lib/function-fsm
+	url = https://github.com/JRVeale/function-fsm.git

@@ -11,6 +11,5 @@ class mclass
     void loop();
 };
 
-extern mclass mp3;
 
 #endif
