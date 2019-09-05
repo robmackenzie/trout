@@ -43,7 +43,6 @@ void sclass::setup() {
 }
 
 void sclass::loop() {
-  static unsigned long timer = millis();
   if (myDFPlayer.available()) {
     uint8_t type = myDFPlayer.readType();
     int value = myDFPlayer.read();
