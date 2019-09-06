@@ -50,12 +50,12 @@ enum Trigger { TOGGLE_SWITCH, MP3_FINISHED };
 // fsm state functions
 void A_start() {
   Serial.println("Entering State A");
-  tail_status == RETRACTING;
+  tail_status = RETRACTING;
   tail_delay.start(12000, AsyncDelay::MILLIS);
 }
 void A_loop() {
 	if (tail_status == RESTING) {
-		tail_delay.start(600, AsyncDelay::MILLIS)
+		tail_delay.start(600, AsyncDelay::MILLIS);
 		digitalWrite(tail_move_pin,HIGH);
 		tail_status = EXTENDING;
 	} else if (tail_status == EXTENDING && tail_delay.isExpired()) {
@@ -90,7 +90,7 @@ void C_start() {
 void C_loop() {
 	// Move mouth and tail.
 	if (mouth_status == RESTING) {
-		mouth_delay.start(700, AsyncDelay::MILLIS)
+		mouth_delay.start(700, AsyncDelay::MILLIS);
 		digitalWrite(mouth_move_pin,HIGH);
 		mouth_status = EXTENDING;
 	} else if (mouth_status == EXTENDING && mouth_delay.isExpired()) {
@@ -102,7 +102,7 @@ void C_loop() {
 	}
 	
 	if (tail_status == RESTING) {
-		tail_delay.start(600, AsyncDelay::MILLIS)
+		tail_delay.start(600, AsyncDelay::MILLIS);
 		digitalWrite(tail_move_pin,HIGH);
 		tail_status = EXTENDING;
 	} else if (tail_status == EXTENDING && tail_delay.isExpired()) {
@@ -147,7 +147,7 @@ void setup() {
   
   // Declare in/out pins
   pinMode(button_pin, INPUT);
-  int outputs[4] = {head_move_in_pin, head_move_out_pin, mouth_move_pin, tail_move_pin}
+  int outputs[4] = {head_move_in_pin, head_move_out_pin, mouth_move_pin, tail_move_pin};
   for (int i = 0; i < 4; i++) {
 	 pinMode(outputs[i], OUTPUT);
   }
@@ -170,7 +170,6 @@ void setup() {
 }
 
 void loop() {
-  t.update(); // Just runs timer tasks
   fsm.run_machine(); // Do Finite State Machine tasks
   mp3.loop(); // Do anything with talking to the MP3 Module
   if (!digitalRead(button_pin) && fsm.is_in_state(state_A)) {
