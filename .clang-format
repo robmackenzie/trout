@@ -1,2 +1,5 @@
-#Use the Google style in this project.
-BasedOnStyle: Mozilla
+BasedOnStyle: Chromium
+
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+BinPackArguments: true

@@ -12,7 +12,7 @@
 #define mouth_move_pin 13
 #define tail_move_pin 15
 
-// Following defined in mp3.cpp. Listed here for visibility
+// Following defined in mp3.cpp. Listed here for visibility of pins used
 //#define software_tx_pin 4
 //#define software_rx_pin  5
 
@@ -119,7 +119,11 @@ void
 B_stop()
 {
   Serial.println("Leaving State B");
+<<<<<<< Updated upstream
   head_motor(H_BRAKING);
+=======
+  digitalWrite(head_move_in_pin, HIGH); // Set Brake
+>>>>>>> Stashed changes
 }
 
 void
@@ -168,13 +172,23 @@ void
 D_start()
 {
   Serial.println("Entering State D");
+<<<<<<< Updated upstream
   head_motor(H_RETRACTING);
+=======
+  digitalWrite(head_move_out_pin, LOW); // Release brake
+  digitalWrite(head_move_in_pin, HIGH); // Move head in
+>>>>>>> Stashed changes
 }
 void
 D_stop()
 {
   Serial.println("Leaving State D");
+<<<<<<< Updated upstream
   head_motor(H_BRAKING);
+=======
+  digitalWrite(head_move_in_pin, LOW); // Rest
+  button_triggered=false;
+>>>>>>> Stashed changes
 }
 // fsm states (initialise in MyClass constructor)
 FunctionState state_A(&A_start, &A_loop, nullptr);
@@ -201,10 +215,17 @@ setup()
   Serial.println("Trout Control V2");
   Serial.println();
   Serial.flush(); // Get serial all nice and ready, with some new lines.
+<<<<<<< Updated upstream
   mp3.setup(); // Initiallize mp3 player, sets up a link, will reboot if fails.
   // TODO Maybe put in a way of telling what's wrong with the system on fails.
 
   // Declare in/out pins
+=======
+  mp3.setup();  // Initiallize mp3 player, sets up a link, will loop, forcing WDT reset if fails.
+  //TODO Maybe put in a way of telling what's wrong with the system on fails.
+  
+  // Set up in/out pins
+>>>>>>> Stashed changes
   pinMode(button_pin, INPUT);
   int outputs[4] = {
     head_move_in_pin, head_move_out_pin, mouth_move_pin, tail_move_pin
@@ -246,9 +267,17 @@ void
 loop()
 {
   fsm.run_machine(); // Do Finite State Machine tasks
+<<<<<<< Updated upstream
   mp3.loop();        // Do anything with talking to the MP3 Module
   if (!digitalRead(button_pin) && fsm.is_in_state(state_A)) {
     button_triggered = true;
     // fsm.trigger(TOGGLE_SWITCH);
+=======
+  mp3.loop(); // Do anything with talking to the MP3 Module
+  if (!digitalRead(button_pin) && fsm.is_in_state(state_A) && !button_triggered) {
+    Serial.println("Button Triggered");
+    button_triggered = true;
+    fsm.trigger(TOGGLE_SWITCH);
+>>>>>>> Stashed changes
   }
 }
