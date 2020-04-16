@@ -13,6 +13,7 @@ class sclass
     void play_random(void (*)(void));
     void play_welcome();
     void play_random();
+    void set_volume(u_int);
 };
 
 extern sclass mp3;

@@ -72,6 +72,11 @@ void sclass::play_random() {
   myDFPlayer.playFolder(2, random(num_random_files) + 1);
 }
 
+void sclass::set_volume(u_int volume) {
+    myDFPlayer.volume(volume);  //Set volume value (0~30).
+}
+
+
 sclass mp3 = sclass();
 
 void printDetail(uint8_t type, int value) {
